@@ -13,6 +13,19 @@
     <div id="image-container"></div>
     <div id="label-container"></div>
     
+    <hr>
+    <div>
+        <h3>Sample images to try</h3>
+        <div>
+            <img src="/samples/41aoOuJ13VL.jpg" width="200" onclick="useSampleImage(this)">
+            <img src="/samples/61K-NxYk7RL.jpg" width="200" onclick="useSampleImage(this)">
+            <img src="/samples/215+p8+UhQL.jpg" width="200" onclick="useSampleImage(this)">
+            <img src="/samples/2420_6999_0.jpg" width="200" onclick="useSampleImage(this)">
+            <img src="/samples/i.jpeg" width="200" onclick="useSampleImage(this)">
+            <img src="/samples/image.png" width="200" onclick="useSampleImage(this)">
+        </div>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script type="text/javascript">
@@ -66,6 +79,14 @@
             };
         }
     
+        async function useSampleImage(img) {
+            await loadModel();
+            document.getElementById("image-container").innerHTML = "";
+            document.getElementById("image-container").appendChild(img.cloneNode());
+            document.getElementById("webcam-container").innerHTML = "";
+            await predict(img);
+        }
+    
         async function predict(imageElement) {
             const prediction = await model.predict(imageElement);
             for (let i = 0; i < maxPredictions; i++) {
@@ -74,7 +95,6 @@
             }
         }
     </script>
-    
 </body>
 </html>
 
